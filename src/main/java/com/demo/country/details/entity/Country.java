@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -65,7 +66,7 @@ public class Country {
 	private Character code2;
 	
 	@OneToMany(mappedBy = "country", fetch = FetchType.EAGER)
-	@JsonManagedReference
+	@JsonBackReference
 	private List<City> cities;
 	
 	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY)

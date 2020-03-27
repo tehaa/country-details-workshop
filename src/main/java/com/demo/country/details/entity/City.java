@@ -10,8 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "city")
@@ -34,7 +34,7 @@ public class City {
 	
 	@ManyToOne(cascade =CascadeType.ALL )
 	@JoinColumn(name = "country_code")
-	@JsonBackReference
+	@JsonManagedReference
 	private Country country;
 
 	public Integer getId() {
