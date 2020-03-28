@@ -64,7 +64,9 @@ public class CountryService {
 //	}
 
 	/**
-	 * 
+	 * this method use native query to return country details that belongs to
+	 * country code param the country language is extracted from the country boolean
+	 * if offical and the most percentage .
 	 * 
 	 * @param countryCode
 	 * @return
@@ -85,12 +87,18 @@ public class CountryService {
 
 			}
 		} catch (DataAccessResourceFailureException e) {
-			LOGGER.error("error while getting country by code {}", e);
+			LOGGER.error("-----> error while getting country by code {}", e);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 					.body(new MessageResponse(ResponseMessages.INTERNAL_ERROR));
 		}
 	}
 
+	/**
+	 * method to construct country dto object from country object
+	 * 
+	 * @param country
+	 * @return
+	 */
 	private CountryDTO constructCountryDTOfromCountry(Country country) {
 		return new CountryDTO(country.getName(), country.getContinent(), country.getPopulation(),
 				country.getLifeExpectancy(), country.getLanguages().get(0).getLanguage());

@@ -64,11 +64,11 @@ public class Country {
 	@Column(name = "code2", columnDefinition = "bpchar")
 	private String code2;
 
-	@OneToMany(mappedBy = "country", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
 	@JsonBackReference
 	private List<City> cities;
 
-	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "country", fetch = FetchType.EAGER)
 	@JsonBackReference
 	private List<CountryLanguage> languages;
 

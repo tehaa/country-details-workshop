@@ -35,6 +35,7 @@ public class CityController {
 		LOGGER.debug(" start api get cities to get page number : {} which size : {} in cities", page, size);
 		
 		Pageable paging = PageRequest.of(page, size);
+		
 		return cityService.getCities(paging);
 	}
 

@@ -3,6 +3,10 @@ package com.demo.country.details.dto;
 public class MessageResponse {
 	private String message;
 
+	public MessageResponse() {
+		super();
+	}
+
 	public MessageResponse(String message) {
 		super();
 		this.message = message;

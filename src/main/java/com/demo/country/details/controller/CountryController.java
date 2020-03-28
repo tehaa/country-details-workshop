@@ -46,7 +46,7 @@ public class CountryController {
 
 	@ApiOperation(value = "this Api will get the country details from the country code")
 	@RequestMapping(value = "{countryCode}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	private ResponseEntity<?> getCountry(@PathVariable String countryCode) {
+	public ResponseEntity<?> getCountry(@PathVariable String countryCode) {
 		LOGGER.debug("-----> start get country with code : {} ", countryCode);
 		
 		//Pageable paging = PageRequest.of(COUNTRY_DETAILS_PAGE_NUMBER, COUNTRY_DETAILS_PAGE_SIZE);

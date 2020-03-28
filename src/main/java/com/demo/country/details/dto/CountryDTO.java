@@ -19,10 +19,6 @@ public class CountryDTO {
 	@JsonProperty(value = "country_language")
 	private String countryLanguage;
 	
-
-
-	
-	
 	
 	public CountryDTO(String name, String continent, Integer population, Float lifeExpectancy) {
 		super();
@@ -39,6 +35,11 @@ public class CountryDTO {
 		this.population = population;
 		this.lifeExpectancy = lifeExpectancy;
 		this.countryLanguage = countryLanguage;
+	}
+	
+
+	public CountryDTO() {
+		super();
 	}
 
 	public String getName() {
@@ -79,6 +80,12 @@ public class CountryDTO {
 
 	public void setCountryLanguage(String countryLanguage) {
 		this.countryLanguage = countryLanguage;
+	}
+
+	@Override
+	public String toString() {
+		return "CountryDTO [name=" + name + ", continent=" + continent + ", population=" + population
+				+ ", lifeExpectancy=" + lifeExpectancy + ", countryLanguage=" + countryLanguage + "]";
 	}
 	
 	
