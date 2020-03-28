@@ -51,7 +51,9 @@ public class CountryService {
 	 */
 	public ResponseEntity<?> getCountry(String countryCode) {
 		try {
+			
 			Pageable paging = PageRequest.of(COUNTRY_DETAILS_PAGE_NUMBER, COUNTRY_DETAILS_PAGE_SIZE);
+			
 			List<CountryDTO> countryDetailsList = countryRepo.getCountryFromCode(countryCode, paging);
 			if (countryDetailsList.size() == 0) {
 				LOGGER.error("-----> error while geeting country with code : {} country not found", countryCode);
