@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "country_language")
@@ -21,7 +22,7 @@ public class CountryLanguage {
 	@Id
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "country_code")
-	@JsonBackReference
+	@JsonManagedReference
 	private Country country;
 
 	@Id

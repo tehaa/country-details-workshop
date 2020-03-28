@@ -12,7 +12,6 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "country")
@@ -20,8 +19,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class Country {
 
 	@Id
-	@Column(name = "code")
-	private Character code;
+	@Column(name = "code", columnDefinition = "bpchar")
+	private String code;
 
 	@Column(name = "name")
 	private String name;
@@ -62,22 +61,22 @@ public class Country {
 	@Column(name = "capital")
 	private Integer capital;
 
-	@Column(name = "code2")
-	private Character code2;
-	
+	@Column(name = "code2", columnDefinition = "bpchar")
+	private String code2;
+
 	@OneToMany(mappedBy = "country", fetch = FetchType.EAGER)
 	@JsonBackReference
 	private List<City> cities;
-	
-	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
-	@JsonManagedReference
-	private List<CountryLanguage> languages ;
 
-	public Character getCode() {
+	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
+	@JsonBackReference
+	private List<CountryLanguage> languages;
+
+	public String getCode() {
 		return code;
 	}
 
-	public void setCode(Character code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 
@@ -185,11 +184,11 @@ public class Country {
 		this.capital = capital;
 	}
 
-	public Character getCode2() {
+	public String getCode2() {
 		return code2;
 	}
 
-	public void setCode2(Character code2) {
+	public void setCode2(String code2) {
 		this.code2 = code2;
 	}
 
@@ -200,8 +199,6 @@ public class Country {
 	public void setCities(List<City> cities) {
 		this.cities = cities;
 	}
-	
-	
 
 	public List<CountryLanguage> getLanguages() {
 		return languages;

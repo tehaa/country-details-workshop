@@ -13,6 +13,11 @@ public class CountryLanguageId implements Serializable {
 
 	private String language;
 
+	
+	public CountryLanguageId() {
+		super();
+	}
+
 	public CountryLanguageId(Country country, String language) {
 		super();
 		this.country = country;
