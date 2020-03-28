@@ -19,8 +19,7 @@ public class CountryDTO {
 	@JsonProperty(value = "country_language")
 	private String countryLanguage;
 	
-	@JsonIgnore
-	private Float percentage;
+
 
 	
 	
@@ -33,14 +32,13 @@ public class CountryDTO {
 		this.lifeExpectancy = lifeExpectancy;
 	}
 
-	public CountryDTO(String name, String continent, Integer population, Float lifeExpectancy, String countryLanguage,Float percentage) {
+	public CountryDTO(String name, String continent, Integer population, Float lifeExpectancy, String countryLanguage) {
 		super();
 		this.name = name;
 		this.continent = continent;
 		this.population = population;
 		this.lifeExpectancy = lifeExpectancy;
 		this.countryLanguage = countryLanguage;
-		this.percentage=percentage;
 	}
 
 	public String getName() {

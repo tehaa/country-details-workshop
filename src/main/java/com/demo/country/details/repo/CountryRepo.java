@@ -13,8 +13,11 @@ import com.demo.country.details.entity.Country;
 public interface CountryRepo extends JpaRepository<Country, String> {
 
 	@Query(value = "select new com.demo.country.details.dto.CountryDTO(c.name as name,c.continent as continent,c.population as population ,"
-			+ "c.lifeExpectancy as lifeExpectancy,cl.language as countryLanguage, cl.percentage as percentage )"
+			+ "c.lifeExpectancy as lifeExpectancy,cl.language as countryLanguage )"
 			+ " from Country c LEFT JOIN CountryLanguage cl ON c.code = cl.country.code where c.code = :code and cl.isOfficial is true  order by cl.percentage desc ")
 	List<CountryDTO> getCountryFromCode(@Param("code") String code,Pageable pageable);
+	
+	@Query(value = "select * from country c LEFT JOIN country_language cl ON c.code = cl.country_code where c.code = ?1 and cl.is_official is true  order by cl.percentage desc limit 1 ",nativeQuery = true)
+	Country getCountryFromCode(String code);
 
 }

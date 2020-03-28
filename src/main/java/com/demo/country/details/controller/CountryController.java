@@ -26,6 +26,10 @@ public class CountryController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CountryController.class);
 
+	public static final int COUNTRY_DETAILS_PAGE_NUMBER = 0;
+
+	public static final int COUNTRY_DETAILS_PAGE_SIZE = 1;
+	
 	@Autowired
 	private CountryService countryService;
 
@@ -44,6 +48,8 @@ public class CountryController {
 	@RequestMapping(value = "{countryCode}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	private ResponseEntity<?> getCountry(@PathVariable String countryCode) {
 		LOGGER.debug("-----> start get country with code : {} ", countryCode);
+		
+		//Pageable paging = PageRequest.of(COUNTRY_DETAILS_PAGE_NUMBER, COUNTRY_DETAILS_PAGE_SIZE);
 
 		return countryService.getCountry(countryCode);
 	}

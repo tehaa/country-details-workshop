@@ -1,6 +1,7 @@
 package com.demo.country.details.service;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,10 +22,6 @@ import com.demo.country.details.util.ResponseMessages;
 
 @Service
 public class CountryService {
-
-	public static final int COUNTRY_DETAILS_PAGE_NUMBER = 0;
-
-	public static final int COUNTRY_DETAILS_PAGE_SIZE = 1;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CountryService.class);
 
@@ -49,24 +46,54 @@ public class CountryService {
 	 * @param countryCode
 	 * @return
 	 */
+//	public ResponseEntity<?> getCountry(String countryCode,Pageable paging) {
+//		try {
+//			List<CountryDTO> countryDetailsList = countryRepo.getCountryFromCode(countryCode, paging);
+//			if (countryDetailsList.size() == 0) {
+//				LOGGER.error("-----> error while geeting country with code : {} country not found", countryCode);
+//				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//						.body(new MessageResponse(ResponseMessages.INVALID_COUNTRY_CODE));
+//			} else {
+//				return ResponseEntity.status(HttpStatus.OK).body(countryDetailsList.get(0));
+//			}
+//		} catch (DataAccessResourceFailureException e) {
+//			LOGGER.error("error while getting country by code {}", e);
+//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//					.body(new MessageResponse(ResponseMessages.INTERNAL_ERROR));
+//		}
+//	}
+
+	/**
+	 * 
+	 * 
+	 * @param countryCode
+	 * @return
+	 */
+
 	public ResponseEntity<?> getCountry(String countryCode) {
+		LOGGER.debug("start service get country from code : {} using native query ", countryCode);
+
 		try {
-			
-			Pageable paging = PageRequest.of(COUNTRY_DETAILS_PAGE_NUMBER, COUNTRY_DETAILS_PAGE_SIZE);
-			
-			List<CountryDTO> countryDetailsList = countryRepo.getCountryFromCode(countryCode, paging);
-			if (countryDetailsList.size() == 0) {
+			Country country = countryRepo.getCountryFromCode(countryCode);
+			if (Objects.isNull(country)) {
 				LOGGER.error("-----> error while geeting country with code : {} country not found", countryCode);
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 						.body(new MessageResponse(ResponseMessages.INVALID_COUNTRY_CODE));
 			} else {
-				return ResponseEntity.status(HttpStatus.OK).body(countryDetailsList.get(0));
+				CountryDTO countryDTO = constructCountryDTOfromCountry(country);
+				return ResponseEntity.status(HttpStatus.OK).body(countryDTO);
+
 			}
 		} catch (DataAccessResourceFailureException e) {
 			LOGGER.error("error while getting country by code {}", e);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 					.body(new MessageResponse(ResponseMessages.INTERNAL_ERROR));
 		}
+	}
+
+	private CountryDTO constructCountryDTOfromCountry(Country country) {
+		return new CountryDTO(country.getName(), country.getContinent(), country.getPopulation(),
+				country.getLifeExpectancy(), country.getLanguages().get(0).getLanguage());
 	}
 
 }
