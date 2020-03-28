@@ -4,9 +4,10 @@ spring:
    application:
       name: country-details-workshop
    datasource:
-      url: jdbc:postgresql://${DATABASE_URL:localhost:5432}/world-db
+      url: jdbc:postgresql://${DATABASE_URL:postgresdb:5432}/world-db
       username: ${DB_USERNAME:world}
       password: ${DB_PASSWORD:world123}
+      driverClassName: org.postgresql.Driver 
       hikari:
          maximum-pool-size: 10
    jpa:

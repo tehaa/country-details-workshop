@@ -8,11 +8,18 @@ services:
       - "8080:8080"
     depends_on:
       - dbpostgresql
+    links: 
+      - dbpostgresql
+
   dbpostgresql:
-    image: postgres
+    image: ghusta/postgres-world-db:2.4
+    container_name: postgresdb
     ports:
       - "5432:5432"
     environment:
       - POSTGRES_PASSWORD=world123
       - POSTGRES_USER=world
       - POSTGRES_DB=world-db
+    volumes:
+      - ./data:/var/lib/postgresql/data
+
