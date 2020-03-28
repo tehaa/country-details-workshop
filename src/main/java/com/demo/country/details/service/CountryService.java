@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,8 +18,6 @@ import com.demo.country.details.dto.MessageResponse;
 import com.demo.country.details.entity.Country;
 import com.demo.country.details.repo.CountryRepo;
 import com.demo.country.details.util.ResponseMessages;
-
-import springfox.documentation.service.ResponseMessage;
 
 @Service
 public class CountryService {
@@ -61,7 +60,7 @@ public class CountryService {
 			} else {
 				return ResponseEntity.status(HttpStatus.OK).body(countryDetailsList.get(0));
 			}
-		} catch (Exception e) {
+		} catch (DataAccessResourceFailureException e) {
 			LOGGER.error("error while getting country by code {}", e);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 					.body(new MessageResponse(ResponseMessages.INTERNAL_ERROR));
